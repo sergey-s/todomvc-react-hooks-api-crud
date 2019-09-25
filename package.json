@@ -1,0 +1,40 @@
+{
+  "name": "todomvc-react-hooks-api-crud",
+  "version": "1.0.0",
+  "description": "Full-featured TodoMVC built with React HOOKs and a real API CRUD",
+  "author": "Sergey Sytsevich <laa513@gmail.com>",
+  "homepage": "https://github.com/sergey-s/todomvc-react-hooks-api-crud",
+  "repository": "github:sergey-s/todomvc-react-hooks-api-crudt",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "eslint:fix": "eslint . --fix",
+    "eslint": "eslint ."
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.6.0",
+    "axios": "^0.19.0",
+    "classnames": "^2.2.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "todomvc-app-css": "^2.2.0",
+    "use-axios-react": "^0.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.4.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
