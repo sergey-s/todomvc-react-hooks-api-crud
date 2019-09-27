@@ -33,44 +33,37 @@ const TodoMvcApp = () => {
 
   // The CRUD **********************************************************************************************************
 
-  // Load the todos once and extract the setTodos() from hook results to update
-  // the todos state variable in response to create, update and delete actions
-  //
+  // Load the todos on initial render
   const [todos = [], fetching, { setData: setTodos, ...fetchInfo }] = useGetData("/todos");
 
-  // Receive the create() callback and update todos state via setTodos() inside a useEffect() react hook
-  // (re-run the useEffect every time the created var changes i.e. every time we create a new todo)
-  //
+  // Declare the create() callback
   const [create, creating, { data: created, ...createInfo }] = usePostCallback(todoToRequest);
+  
+  // Update todos array every time we create a new one
+  // (re-run the useEffect every time the `created` changes i.e. every time we create a new todo)
   useEffect(
     () => { created && setTodos([...todos, created]); },
     [created]
   );
 
-  // Receive the update() callback and update todos state in useEffect() whenever we update something.
-  //
-  // Notice that we're using a batch/parallel hook useParallelPatchCallback() which accepts array of objects while
-  // the usePostCallback() in the previous example accepts a single object.
-  //
-  // The result of the batch/parallel hook is also an array i.e. updated will be an array of updated todo objects.
-  //
-  // (We're using the batch/parallel version to allow the toggle all batch operation)
-  //
+  // Declare the update() callback. Notice that unlike the create() it's now a batch/parallel callback to allow
+  // toggle all batch operation.
   const [update, updating, { data: updated, ...updateInfo }] = useParallelPatchCallback(todoToRequest);
+  
+  // Update the `todos` array every time the `updated` var changes i.e. every time we've updated something
   useEffect(
     () => { setTodos(todos.map((todo) => updated.find(({ id }) => id === todo.id) || todo)); },
     [updated]
   );
 
-  // Using the batch/parallel axios hook for delete to allow the remove all completed batch operation
-  //
+  // Declar the batch/parallel remove() callback and update todos inside a useEffect() similarly to the previous exampple
   const [remove, removing, { succeed: removed, ...removeInfo }] = useParallelDeleteCallback(todoToRequest);
   useEffect(
     () => { setTodos(todos.filter((todo) => !removed.includes(todo))); },
     [removed]
   );
-
-  // Some helper methods using the CRUD callbacks **********************************************************************
+  
+  // By this point we have our CRUD set up, later code declares some helper methods using the above CRUD callbacks ******
 
   const toggleAll = () => {
     const newCompleted = Boolean(todos.find(({ completed }) => !completed));
